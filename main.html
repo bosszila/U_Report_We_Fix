@@ -28,69 +28,70 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!--Section heading-->
     <script>
-      let latLongMain = { lat: 13.747945124817639, lng: 100.5388096197286 };
-      let map;
+        let latLongMain = { lat: 13.747945124817639, lng: 100.5388096197286 };
+        let map;
+        let markers = [];
+        navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          latLongMain = { lat: position.coords.latitude, lng: position.coords.longitude };
+          document.getElementById("searchText").value = position.coords.latitude + "," + position.coords.longitude;
+          map.setCenter(pos);
+        },
+        () => {
+          handleLocationError();
+        }
+      );
+        const player = document.getElementById('player');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const captureButton = document.getElementById('capture');
+        const cameraButton = document.getElementById('camera');
+      
+        const constraints = {
+          video: true,
+        };
+      
+        captureButton.addEventListener('click', () => {
+          // Draw the video frame to the canvas.
+          context.drawImage(player, 0, 0, canvas.width, canvas.height);
+          player.srcObject.getVideoTracks().forEach(track => track.stop()); // stop when press
+        });
+      
+        // Attach the video stream to the video element and autoplay.
+        navigator.mediaDevices.getUserMedia(constraints)
+          .then((stream) => {
+            player.srcObject = stream;
+          });
+
       function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
         center: latLongMain,
       });
-      const infoWindow = new google.maps.InfoWindow();
-      const locationButton = document.createElement("button");
-
-      locationButton.textContent = "Pan to Current Location";
-      locationButton.classList.add("custom-map-control-button");
-      map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-      locationButton.addEventListener("click", () => {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-
-              infoWindow.setPosition(pos);
-              infoWindow.setContent("Location found.");
-              infoWindow.open(map);
-              map.setCenter(pos);
-            },
-            () => {
-              handleLocationError(true, infoWindow, map.getCenter());
-            }
-          );
-        } else {
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      });
     }
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(
-        browserHasGeolocation
-          ? "Error: The Geolocation service failed."
-          : "Error: Your browser doesn't support geolocation."
-      );
-      infoWindow.open(map);
+    function handleLocationError() {
+      latLongMain = { lat: 13.747945124817639, lng: 100.5388096197286 };
+      map.setCenter(latLongMain);
     }
 
-    function addPoint() {
-      const tourStops = [
-        [{ lat: 13.789615951853378, lng: 100.54824158440078 }, "Boynton Pass"],
-        [{ lat: 13.75604689303767, lng: 100.56498773721228 }, "Airport Mesa"],
-        [{ lat: 13.751941158319068, lng: 100.50423241375606 }, "Chapel of the Holy Cross"],
-        [{ lat: 13.826842815277967, lng: 100.56767735207342 }, "Red Rock Crossing"],
-        [{ lat: 13.768664405915473, lng: 100.64739626915951 }, "Bell Rock"],
-      ];
+    function addPoint(points = []) {
+      const tourStops = [];
+      for(let g = 0; g < points.length; g++){
+        tourStops.push([{lat: points[g].latitude, lng: points[g].longitude}, points[g].topic]);
+      }
       const infoWindow = new google.maps.InfoWindow();
     
       const image = {
         // url: "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
         url: "./img/road.png",
-        size: new google.maps.Size(200, 320),
+        size: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(0, 32),
+        anchor: new google.maps.Point(0, 50),
       };
 
       tourStops.forEach(([position, title], i) => {
@@ -102,7 +103,10 @@
             optimized: false,
           });
           const contentString =
-          '<div class="card"><img src="https://media.gettyimages.com/photos/portrait-of-first-lady-and-spiritual-leader-of-the-nation-of-maria-picture-id153989813?s=612x612" alt="Avatar" style="width:100px;height:100px;"><div class="container"><h4><b>John Doe</b></h4> <p>Architect & Engineer</p> </div></div>';
+          '<div class=""><img src="https://media.gettyimages.com/photos/portrait-of-first-lady-and-spiritual-leader-of-the-nation-of-maria-picture-id153989813?s=612x612" alt="Avatar" class="center" style="width:100px;height:100px;">'+
+          `<div class="container"><h4><b>${title}</b>`+
+          `</h4> <p>${JSON.stringify(position)}</p> </div>`+
+          '</div>';
           marker.addListener("click", () => {
             infoWindow.close();
             infoWindow.setContent(contentString);
@@ -111,33 +115,50 @@
         });
     }
 
-    let markers = [];
+
     function selectPoint() {
       let infoWindow = new google.maps.InfoWindow();
 
       infoWindow.open(map); 
       var clickGetLatLongListener = map.addListener("click", (mapsMouseEvent) => {
         for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
+          markers[i].setMap(null);
         }
         markers = []; 
         let newMarker = new google.maps.Marker({
-        position:mapsMouseEvent.latLng.toJSON(),
-        map: map,
-      });
+          position:mapsMouseEvent.latLng.toJSON(),
+          map: map,
+        });
         markers.push(newMarker);
         infoWindow.close();
-        // google.maps.event.removeListener(clickGetLatLongListener);
+        var aa = mapsMouseEvent.latLng+"";
+        document.getElementById("searchText").value = aa.replace("(", "").replace(")","");
       });
     }
 
+    function nonSelectPoint() {
+      latLongMain = { lat: 13.747945124817639, lng: 100.5388096197286 };
+      for (let i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+      }
+      markers = []; 
+      google.maps.event.clearListeners(map, 'click');
+    }
+
     function search() {
-      console.log(httpPost("http://94.74.113.87:8081/api/scb-we-fixed/v1/searchReport", {
+      var searchText = document.getElementById("searchText").value;
+      var searchTextSplit = searchText.split(",");
+      console.log(searchText)
+      let response = httpPost("http://94.74.113.87:8081/api/scb-we-fixed/v1/searchReport", {
         "categoryID" : 2,
-        "latitude" : 13.3489234783,
-        "longitude" : 100.3432784,
+        // "latitude" : searchTextSplit[0].trim(),
+        // "longitude" : searchTextSplit[1].trim(),
+        "lat" : 13.3489234783,
+        "lng" : 100.3432784,
         "inAreaKM" : 1.0
-      }));
+      });
+      console.log(response);
+      addPoint(JSON.parse(response))
     }
 
     function httpGet(theUrl){
@@ -153,10 +174,16 @@
         xmlHttp.setRequestHeader('Content-Type', 'application/json');
         xmlHttp.setRequestHeader('requestUID', 'aaaa');
         xmlHttp.send( JSON.stringify(body) );
-        return xmlHttp.responseText;
+        return xmlHttp.response;
     }
     </script>
     <style type="text/css">
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
       #map {
         height: 400px;
         width: 100%;
@@ -193,21 +220,21 @@
                     <li class="list-group-item"><a href="#Games">อุทกภัย</a></li>
                     <li class="list-group-item"><a href="#Music">อุบัติเหตุ</a></li>
                 </ul>
-                <input type="text" class="form-control bg-light border-0 small" placeholder="13.746489 , 100.549110"
+                <input type="text" id="searchText" class="form-control bg-light border-0 small" placeholder="13.746489 , 100.549110"
                     aria-label="Search" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
+                    <button class="btn btn-primary" type="button" onclick="search()">
                         <i class="fas fa-search fa-sm"></i>
                     </button>
                 </div>
             </div>
         </form>
         
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <div class="form-check form-check-inline" onclick="nonSelectPoint()">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" checked id="inlineRadio1" value="option1">
             <label class="form-check-label" for="inlineRadio1">รัศมี 1 กม.</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline" onclick="selectPoint()">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
             <label class="form-check-label" for="inlineRadio2">เลือกจากแผนที่</label>
         </div>
@@ -399,8 +426,30 @@
         <input type="file" name="image" accept="image/*" capture="environment">
         <!-- <button id="capture" type="button" class="btn btn-success" onclick="doAddReport()"><i class="fa fa-camera fa-2x" aria-hidden="true"></i></button>
       </div> -->
-    
+<!--     
       <script>
+        {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+
+              infoWindow.setPosition(pos);
+              infoWindow.setContent("Location found.");
+              infoWindow.open(map);
+              map.setCenter(pos);
+            },
+            () => {
+              handleLocationError(true, infoWindow, map.getCenter());
+            }
+          );
+        } else {
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
         const player = document.getElementById('player');
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
@@ -410,7 +459,6 @@
         const constraints = {
           video: true,
         };
-      
       
         captureButton.addEventListener('click', () => {
           // Draw the video frame to the canvas.
@@ -423,8 +471,7 @@
           .then((stream) => {
             player.srcObject = stream;
           });
-      </script>
-      
+      </script> -->
       
         
         </section>
