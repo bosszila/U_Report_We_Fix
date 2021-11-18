@@ -94,13 +94,13 @@
         if(catID == 1) {
           icon = "./img/accident.png";
         } else if(catID == 2) {
-          icon = "./img/fire.png";
+          icon = "./img/thunder.png";
         } else if(catID == 3) {
           icon = "./img/flood.png";
         } else if(catID == 4) {
           icon = "./img/road.png";
         } else {
-          icon ="./img/thunder.png";
+          icon ="./img/fire.png";
         }
         // const cateSearchIcon = ['./img/accident.png','./img/fire.png','./img/flood.png','./img/road.png','./img/lightning.png']
         const image = {
@@ -369,7 +369,7 @@
 <script>
   function addCardList(i_cardList){
       $.each(i_cardList, function(i, obj){
-          addCard(obj.pic1, obj.title , obj.description, obj.categoryId , obj.latitude, obj.longitude, false, obj.userId , obj.userGroupID), obj.reportID;
+          addCard(obj.pic1, obj.topic , obj.description, obj.categoryId , obj.latitude, obj.longitude, false, obj.userId , obj.userGroupID), obj.reportID;
       });
   }
  function addCard(img ,i_title, i_desc, categoryId,location, i_initialCreate, i_userID, i_userGroupID, i_reportID){
@@ -542,13 +542,13 @@ console.log(data);
         if(catID == 1) {
           icon = "./img/accident.png";
         } else if(catID == 2) {
-          icon = "./img/fire.png";
+          icon = "./img/thunder.png";
         } else if(catID == 3) {
           icon = "./img/flood.png";
         } else if(catID == 4) {
           icon = "./img/road.png";
         } else {
-          icon ="./img/thunder.png";
+          icon ="./img/fire.png";
         }
       const image = {
         
