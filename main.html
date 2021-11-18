@@ -216,7 +216,6 @@
           </button>
         </div>
         <div class="modal-body">
-  
           <form>
             <div class="form-group row">
               <label for="inputHeader" class="col-sm-2 col-form-label">หัวข้อ</label>
@@ -242,13 +241,14 @@
   <div>
     <section class="section pb-5">
 
-      <div class="col text-center">
+      <!-- <div class="col text-center">
       <video id="player" controls autoplay></video>
       <canvas id="canvas" width=320 height=240></canvas>
       <br>
-      <br>
-        <button id="capture" type="button" class="btn btn-success"><i class="fa fa-camera fa-2x" aria-hidden="true"></i></button>
-      </div>
+      <br> -->
+        <input type="file" name="image" accept="image/*" capture="environment">
+        <!-- <button id="capture" type="button" class="btn btn-success" onclick="doAddReport()"><i class="fa fa-camera fa-2x" aria-hidden="true"></i></button>
+      </div> -->
     
       <script>
         const player = document.getElementById('player');
