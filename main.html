@@ -1,66 +1,172 @@
 
 <!--Section: Contact v.1-->
 <section class="section pb-5">
-        
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="mystyle.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!--Section heading-->
 
-    <h2 class="section-heading h1 pt-4">Contact us</h2>
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        <!-- Topbar Search -->
+        <form
+            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span id="srch-category">Category</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="mnu-category">
+                    <li class="list-group-item"><a href="#Apps">ไฟฟ้าขัดข้อง</a></li>
+                    <li class="list-group-item"><a href="#eBooks">น้ำท่วม</a></li>
+                    <li class="list-group-item"><a href="#Games">อุทกภัย</a></li>
+                    <li class="list-group-item"><a href="#Music">อุบัติเหตุ</a></li>
+                </ul>
+                <input type="text" class="form-control bg-light border-0 small" placeholder="13.746489 , 100.549110"
+                    aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div>
+
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">รัศมี 1 กม.</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="option2">
+                <label class="form-check-label" for="inlineCheckbox2">เลือกจากแผนที่</label>
+              </div>
+        </div>
+        <!-- <div>
+            <h6><i class="fas fa-phone fa-sm"></i>+1(800)6578976</h6>
+        </div> -->
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            
+           
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Jon Doe</span>
+                    <img class="img-profile rounded-circle"
+                        src="img/undraw_profile.svg">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Settings
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Activity Log
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <h2 class="section-heading h1 pt-4">You Report, We Fix</h2>
     <!--Section description-->
-    <p class="section-description pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
-      amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a
-      pariatur accusamus veniam.</p>
+
   
     <div class="row">
   
       <!--Grid column-->
       <div class="col-lg-5 mb-4">
   
-        <!--Form with header-->
-        <div class="card">
-  
-          <div class="card-body">
-            <!--Header-->
-            <div class="form-header blue accent-1">
-              <h3><i class="fas fa-envelope"></i> Write to us:</h3>
-            </div>
-  
-            <p>We'll write rarely, but with only the best content.</p>
-            <br>
-  
-            <!--Body-->
-            <div class="md-form">
-              <i class="fas fa-user prefix grey-text"></i>
-              <input type="text" id="form-name" class="form-control">
-              <label for="form-name">Your name</label>
-            </div>
-  
-            <div class="md-form">
-              <i class="fas fa-envelope prefix grey-text"></i>
-              <input type="text" id="form-email" class="form-control">
-              <label for="form-email">Your email</label>
-            </div>
-  
-            <div class="md-form">
-              <i class="fas fa-tag prefix grey-text"></i>
-              <input type="text" id="form-Subject" class="form-control">
-              <label for="form-Subject">Subject</label>
-            </div>
-  
-            <div class="md-form">
-              <i class="fas fa-pencil-alt prefix grey-text"></i>
-              <textarea id="form-text" class="form-control md-textarea" rows="3"></textarea>
-              <label for="form-text">Icon Prefix</label>
-            </div>
-  
-            <div class="text-center mt-4">
-              <button class="btn btn-light-blue">Submit</button>
-            </div>
-  
+          <div class="card-container">
+              <div class="float-layout">
+                <div class="card-image">
+                  <img src="img/img1.jpg">
+                  <div class="card">
+                    <div class="card-title">เสาไฟฟ้าล้ม</div>
+                    <div class="card-desc" id="title1">
+                      เสาไฟล้ม ทำให้ขับรถผ่านไม่ได้
+                      <h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>
+                      <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>
+                      <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
-  
-        </div>
+          <div class="card-container">
+              <div class="float-layout">
+                <div class="card-image">
+                  <img src="img/img1.jpg">
+                  <div class="card">
+                    <div class="card-title">เสาไฟฟ้าล้ม</div>
+                    <div class="card-desc" id="title1">
+                      เสาไฟล้ม ทำให้ขับรถผ่านไม่ได้
+                      <h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>
+                      <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>
+                      <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="card-container">
+              <div class="float-layout">
+                <div class="card-image">
+                  <img src="img/img1.jpg">
+                  <div class="card">
+                    <div class="card-title">เสาไฟฟ้าล้ม</div>
+                    <div class="card-desc" id="title1">
+                      เสาไฟล้ม ทำให้ขับรถผ่านไม่ได้
+                      <h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>
+                      <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>
+                      <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <button type="button" class="btn btn-success btn-lg btn-block">+</button>
+      
+        <!--Form with header-->
+        <!-- <div class="card text-right" style="width: 18rem;">
+            <img class="card-img-top" src="img/undraw_profile.svg" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div> -->
         <!--Form with header-->
   
       </div>
