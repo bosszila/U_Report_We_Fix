@@ -32,7 +32,8 @@
         let map;
         let markers = [];
         let selectedIdSearch = 1;
-        let cataSearch = ["อุบัติเหตุ", "ไฟไหม้", "อุทุกภัย", "ถนน", "ไฟไหม้"];
+        const cateSearchName = ["อุบัติเหตุ","ไฟฟ้า","อุทุกภัย","ถนน","ไฟไหม้"];
+        const cateSearchIcon = ['./img/accident.png','./img/fire.png','./img/flood.png','./img/road.png','./img/lightning.png']
         navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
@@ -84,19 +85,30 @@
     function addPoint(points = []) {
       const tourStops = [];
       for(let g = 0; g < points.length; g++){
-        tourStops.push([{lat: points[g].latitude, lng: points[g].longitude}, points[g].topic]);
+        tourStops.push([{lat: points[g].latitude, lng: points[g].longitude}, points[g].topic, points[g].categoryID]);
       }
       const infoWindow = new google.maps.InfoWindow();
-    
-      const image = {
+      tourStops.forEach(([position, title, catID], i) => {
+        let icon ="";
+        if(catID == 1) {
+          icon = "./img/accident.png";
+        } else if(catID == 2) {
+          icon = "./img/fire.png";
+        } else if(catID == 3) {
+          icon = "./img/flood.png";
+        } else if(catID == 4) {
+          icon = "./img/road.png";
+        } else {
+          icon ="./img/lightning.png";
+        }
+        // const cateSearchIcon = ['./img/accident.png','./img/fire.png','./img/flood.png','./img/road.png','./img/lightning.png']
+        const image = {
         // url: "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-        url: "./img/road.png",
+        url:  `${icon}`,
         size: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(0, 50),
       };
-
-      tourStops.forEach(([position, title], i) => {
           const marker = new google.maps.Marker({
             position,
             map,
@@ -105,7 +117,7 @@
             optimized: false,
           });
           const contentString =
-          '<div class=""><img src="https://media.gettyimages.com/photos/portrait-of-first-lady-and-spiritual-leader-of-the-nation-of-maria-picture-id153989813?s=612x612" alt="Avatar" class="center" style="width:100px;height:100px;">'+
+          '<div class=""><img src="data:image/png;base64, '+points[i].pic1+'" alt="Avatar" class="center" style="width:100px;height:100px;">'+
           `<div class="container"><h4><b>${title}</b>`+
           `</h4> <p>${JSON.stringify(position)}</p> </div>`+
           '</div>';
@@ -147,7 +159,8 @@
       google.maps.event.clearListeners(map, 'click');
     }
     function selectSearchCat(id) {
-      document.getElementById("srch-category").title = cataSearch[id];
+      console.log(id);
+      // document.getElementById("srch-category").title = cataSearch[id].name;
       selectedIdSearch = id;
     }
 
@@ -164,7 +177,8 @@
         "inAreaKM" : 1.0
       });
       console.log(response);
-      addPoint(JSON.parse(response))
+      addPoint(JSON.parse(response));
+      addCardList(JSON.parse(response));
     }
 
     function httpGet(theUrl){
@@ -222,7 +236,7 @@
                 </button>
                 <ul class="dropdown-menu" id="mnu-category">
                     <li class="list-group-item"><a onclick="selectSearchCat(1)">อุบัติเหตุ</a></li>
-                    <li class="list-group-item"><a onclick="selectSearchCat(2)">ไฟไหม้</a></li>
+                    <li class="list-group-item"><a onclick="selectSearchCat(2)">ไฟฟ้า</a></li>
                     <li class="list-group-item"><a onclick="selectSearchCat(3)">อุทุกภัย</a></li>
                     <li class="list-group-item"><a onclick="selectSearchCat(4)">ถนน</a></li>
                     <li class="list-group-item"><a onclick="selectSearchCat(5)">ไฟไหม้</a></li>
@@ -457,15 +471,15 @@ console.log(data);
         }else{
           alert("Fail");
         }
-        addOnePoint(latLongMain,  $("#inputHeader").val());
+        addOnePoint(latLongMain,  $("#inputHeader").val(), i_imgbase64);
         return xmlHttp.responseText;
   
 // httpPost(url,data){}
     }
-    function addOnePoint(position, title) {
+    function addOnePoint(position, title, base64) {
       const image = {
         // url: "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-        url: "./img/road.png",
+        url: cataSearch[selectedIdSearch].icon,
         size: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(0, 50),
@@ -479,7 +493,7 @@ console.log(data);
             optimized: false,
           });
           const contentString =
-          '<div class=""><img src="https://media.gettyimages.com/photos/portrait-of-first-lady-and-spiritual-leader-of-the-nation-of-maria-picture-id153989813?s=612x612" alt="Avatar" class="center" style="width:100px;height:100px;">'+
+          '<div class=""><img src="'+base64+'" alt="Avatar" class="center" style="width:100px;height:100px;">'+
           `<div class="container"><h4><b>${title}</b>`+
           `</h4> <p>${JSON.stringify(position)}</p> </div>`+
           '</div>';
