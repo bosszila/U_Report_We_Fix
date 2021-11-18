@@ -502,18 +502,16 @@ function getBase64(file) {
 }
 
     function myFunction(i_imgbase64) {
-
-
       var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/report/save";
-var data = {
-   "topic" : $("#inputHeader").val(), 
-    "latitude": latLongMain.lat,
-    "longitude": latLongMain.lng,
-    "userId": "3",
-    "categoryId": $("#catId").val(),
-    "description" : $("#inputDetail").val(),
-    "picture1" : i_imgbase64
-};
+      var data = {
+        "topic" : $("#inputHeader").val(), 
+          "latitude": latLongMain.lat,
+          "longitude": latLongMain.lng,
+          "userId": "3",
+          "categoryId": $("#catId").val(),
+          "description" : $("#inputDetail").val(),
+          "picture1" : i_imgbase64.split(",")[1]
+      };
 console.log(data);
         var xmlHttp = new XMLHttpRequest();
 
