@@ -42,18 +42,17 @@
                 </div>
             </div>
         </form>
-
-        <div>
-
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">รัศมี 1 กม.</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">เลือกจากแผนที่</label>
-              </div>
+        
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">รัศมี 1 กม.</label>
         </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">เลือกจากแผนที่</label>
+        </div>
+        
+      
         <!-- <div>
             <h6><i class="fas fa-phone fa-sm"></i>+1(800)6578976</h6>
         </div> -->
@@ -101,7 +100,7 @@
 
     </nav>
 
-    <h2 class="section-heading h1 pt-4">You Report, We Fix</h2>
+    <h2 class="section-heading h1 pt-4"><i class="fa fa-star" aria-hidden="true"></i>You Report, We Fix</h2>
     <!--Section description-->
 
   
@@ -109,13 +108,14 @@
   
       <!--Grid column-->
       <div class="col-lg-5 mb-4">
-  
           <div class="card-container">
               <div class="float-layout">
                 <div class="card-image">
                   <img src="img/img1.jpg">
                   <div class="card">
-                    <div class="card-title">เสาไฟฟ้าล้ม</div>
+                    <div class="card-title">เสาไฟฟ้าล้ม 
+                      <button type="button" class="btn btn-secondary" id="status" data-toggle="modal" data-target="#exampleModal">Open</button>
+                    </div>
                     <div class="card-desc" id="title1">
                       เสาไฟล้ม ทำให้ขับรถผ่านไม่ได้
                       <h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>
@@ -125,40 +125,10 @@
                   </div>
                 </div>
               </div>
-          </div>
-          <div class="card-container">
-              <div class="float-layout">
-                <div class="card-image">
-                  <img src="img/img1.jpg">
-                  <div class="card">
-                    <div class="card-title">เสาไฟฟ้าล้ม</div>
-                    <div class="card-desc" id="title1">
-                      เสาไฟล้ม ทำให้ขับรถผ่านไม่ได้
-                      <h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>
-                      <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>
-                      <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <div class="card-container">
-              <div class="float-layout">
-                <div class="card-image">
-                  <img src="img/img1.jpg">
-                  <div class="card">
-                    <div class="card-title">เสาไฟฟ้าล้ม</div>
-                    <div class="card-desc" id="title1">
-                      เสาไฟล้ม ทำให้ขับรถผ่านไม่ได้
-                      <h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>
-                      <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>
-                      <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <button type="button" class="btn btn-success btn-lg btn-block">+</button>
+          </div>  
+          
+          <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#addModel">+</button>
+      
       
         <!--Form with header-->
         <!-- <div class="card text-right" style="width: 18rem;">
@@ -170,6 +140,144 @@
         <!--Form with header-->
   
       </div>
+
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="col text-center">
+              <h5 class="modal-title" id="exampleModalLabel">อัพเดตสถานะ</h5>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <form>
+              <div class="form-group row">
+                <label for="inputHeader" class="col-sm-2 col-form-label">หัวข้อ</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputHeader" value="เสาไฟฟ้าล้ม">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputEvent" class="col-sm-2 col-form-label">ประเภทเหตุการณ์</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputEvent" value="ไฟฟ้า">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputDetail" class="col-sm-2 col-form-label">รายละเอียด</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputDetail" value="เสาไฟล้มทำให้ขับรถผ่านไม่ได้"><br>
+                </div>
+              </div>
+            </form>
+     
+          <div class="col text-center">
+              <a href="#" role="button" class="btn btn-secondary" title="Popover title" data-content="Popover body content is set in this attribute.">OPEN</a>
+              <a href="#" role="button" class="btn btn-warning" title="Popover title" data-content="Popover body content is set in this attribute.">IN PROGRESS</a> 
+              <a href="#" role="button" class="btn btn-success" title="Popover title" data-content="Popover body content is set in this attribute.">FIXED</a> 
+              <a href="#" role="button" class="btn btn-secondary" title="Popover title" data-content="Popover body content is set in this attribute.">CLOSED</a> 
+          </div>
+   
+        </div>
+        <div class="modal-footer">
+          <div class="col text-center">
+              <button type="button" class="btn btn-secondary button1" data-dismiss="modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-success button1"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+<div class="modal fade" id="addModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">เพิ่มเหตุการณ์</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <form>
+            <div class="form-group row">
+              <label for="inputHeader" class="col-sm-2 col-form-label">หัวข้อ</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputHeader" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEvent" class="col-sm-2 col-form-label">ประเภทเหตุการณ์</label></t>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputEvent" >
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputDetail" class="col-sm-2 col-form-label">รายละเอียด</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputDetail" >
+              </div>
+            </div>
+          </form>
+        </div>
+  
+  <div>
+    <section class="section pb-5">
+
+      <div class="col text-center">
+      <video id="player" controls autoplay></video>
+      <canvas id="canvas" width=320 height=240></canvas>
+      <br>
+      <br>
+        <button id="capture" type="button" class="btn btn-success"><i class="fa fa-camera fa-2x" aria-hidden="true"></i></button>
+      </div>
+    
+      <script>
+        const player = document.getElementById('player');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const captureButton = document.getElementById('capture');
+        const cameraButton = document.getElementById('camera');
+      
+        const constraints = {
+          video: true,
+        };
+      
+      
+        captureButton.addEventListener('click', () => {
+          // Draw the video frame to the canvas.
+          context.drawImage(player, 0, 0, canvas.width, canvas.height);
+          player.srcObject.getVideoTracks().forEach(track => track.stop()); // stop when press
+        });
+      
+        // Attach the video stream to the video element and autoplay.
+        navigator.mediaDevices.getUserMedia(constraints)
+          .then((stream) => {
+            player.srcObject = stream;
+          });
+      </script>
+      
+      
+        
+        </section>
+  </div>
+  
+        <div class="modal-footer">
+          <div class="col text-center">
+          <button type="button" class="btn btn-secondary button1" data-dismiss="modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-success button1"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
       <!--Grid column-->
   
       <!--Grid column-->
