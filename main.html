@@ -125,7 +125,7 @@
    var html = ' <div class="card-container"> '+
       ' <div class="float-layout">'+
                   '  <div class="card-image">'+
-                    '<img src="'+ (img.indexOf("image")>=0? img : "data:image/png;base64,"+img) +'"/> '+
+                  '<img class="img-thumbnail" src="'+ (img.indexOf("image")>=0? img : "data:image/png;base64,"+img) +'"/> '+
                   ' <div class="card">'+
                       ' <div class="card-title">'+i_title+ 
                         '<button type="button" class="btn btn-secondary" id="status" data-toggle="modal" data-target="#exampleModal"                         onclick=\"doOpenPopup(\''+i_title+'\',\''+i_desc+'\',\''+categoryId+'\',\''+reportID+'\',\''+location.lat+'\',\''+location.lng+'\',\''+i_initialCreate+'\',\''+i_userID+'\',\''+i_userGroupID+'\')\">Open</button>'+
