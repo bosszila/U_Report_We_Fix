@@ -112,31 +112,39 @@
 
     <h2 class="section-heading h1 pt-4"><i class="fa fa-star" aria-hidden="true"></i>You Report, We Fix</h2>
     <!--Section description-->
+<script>
+ function addCard(i_title, i_desc){
 
-  
+
+   var html = '          <div class="card-container"> '+
+      ' <div class="float-layout">'+
+                  '  <div class="card-image">'+
+                    '<img src="ppng/riehi343j4h3k" > '+
+                  ' <div class="card">'+
+                      ' <div class="card-title">'+i_title+ 
+                        '<button type="button" class="btn btn-secondary" id="status" data-toggle="modal" data-target="#exampleModal" onclick=\"doOpenPopup(\''+i_title+'\')\">Open</button>'+
+                      ' </div>'+
+                    ' <div class="card-desc" id="title1">'+
+                        i_desc +
+                      '<h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>'+
+                      ' <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>'+
+                      ' <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>'+
+                      '   </div>'+
+                    '  </div>'+
+                  '     </div>'+
+          '    </div>'+
+          '</div> ';
+
+   document.getElementById("card_list").innerHTML += html;
+ }
+</script>
+  <input type="button" value="add" onclick="addCard('test','gggfg')"/>
     <div class="row">
   
       <!--Grid column-->
-      <div class="col-lg-5 mb-4">
-          <div class="card-container">
-              <div class="float-layout">
-                <div class="card-image">
-                  <img src="img/img1.jpg">
-                  <div class="card">
-                    <div class="card-title">เสาไฟฟ้าล้ม 
-                      <button type="button" class="btn btn-secondary" id="status" data-toggle="modal" data-target="#exampleModal">Open</button>
-                    </div>
-                    <div class="card-desc" id="title1">
-                      เสาไฟล้ม ทำให้ขับรถผ่านไม่ได้
-                      <h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>
-                      <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>
-                      <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>  
-          
+      <div class="col-lg-5 mb-4" id="card_list">
+         
+           
           
           <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#addModel">+</button>
       
@@ -153,11 +161,35 @@
       </div>
 
       <!-- Modal -->
+      <script>
+         function doOpenPopup(i_tlte, i_desc, i_cateID, i_reportID){
+               document.getElementById("inputHeader").value = i_tlte;
+               document.getElementById("inputEvent").value = i_desc;
+
+               
+         }
+
+         function doFix(){
+           var v_cateID = document.getElementById("cateID").value;
+           var v_cateID = document.getElementById("cateID").value;
+           var v_cateID = document.getElementById("cateID").value;
+           var v_cateID = document.getElementById("cateID").value;
+           var v_cateID = document.getElementById("cateID").value;
+           var v_cateID = document.getElementById("cateID").value;
+
+            
+            //---- Call API
+
+            alert("Success");
+         }
+      </script>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <div class="col text-center">
+              <input type="hidden" id="cateID" value=""/>
+              <input type="hidden" id="reportID" value=""/>
               <h5 class="modal-title" id="exampleModalLabel">อัพเดตสถานะ</h5>
           </div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -187,18 +219,19 @@
               </div>
             </form>
      
-          <div class="col text-center">
-              <a href="#" role="button" class="btn btn-secondary" title="Popover title" data-content="Popover body content is set in this attribute.">OPEN</a>
-              <a href="#" role="button" class="btn btn-warning" title="Popover title" data-content="Popover body content is set in this attribute.">IN PROGRESS</a> 
-              <a href="#" role="button" class="btn btn-success" title="Popover title" data-content="Popover body content is set in this attribute.">FIXED</a> 
-              <a href="#" role="button" class="btn btn-secondary" title="Popover title" data-content="Popover body content is set in this attribute.">CLOSED</a> 
-          </div>
+            <div class="col text-center">
+                <button type="button" class="btn btn-secondary" title="Popover title" data-content="Popover body content is set in this attribute.">OPEN</button>
+                <button type="button" class="btn btn-warning" title="Popover title" data-content="Popover body content is set in this attribute.">IN PROGRESS</button>
+                <button type="button" class="btn btn-success" title="Popover title" data-content="Popover body content is set in this attribute.">FIXED</button>
+                <button type="button" class="btn btn-secondary" title="Popover title" data-content="Popover body content is set in this attribute.">CLOSED</button>
+            </div>
+      
    
         </div>
         <div class="modal-footer">
           <div class="col text-center">
-              <button type="button" class="btn btn-secondary button1" data-dismiss="modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
-              <button type="button" class="btn btn-success button1"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-success"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
           </div>
       </div>
       </div>
@@ -282,8 +315,8 @@
   
         <div class="modal-footer">
           <div class="col text-center">
-          <button type="button" class="btn btn-secondary button1" data-dismiss="modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
-          <button type="button" class="btn btn-success button1"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-success"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
         </div>
         </div>
       </div>
