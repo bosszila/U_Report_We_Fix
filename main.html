@@ -33,7 +33,6 @@
         let markers = [];
         let selectedIdSearch = 1;
         const cateSearchName = ["อุบัติเหตุ","ไฟฟ้า","อุทุกภัย","ถนน","ไฟไหม้"];
-        const cateSearchIcon = ['./img/accident.png','./img/fire.png','./img/flood.png','./img/road.png','./img/lightning.png']
         navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
@@ -89,7 +88,7 @@
       }
       const infoWindow = new google.maps.InfoWindow();
       tourStops.forEach(([position, title, catID], i) => {
-        let icon ="";
+        let icon = "";
         if(catID == 1) {
           icon = "./img/accident.png";
         } else if(catID == 2) {
@@ -99,7 +98,7 @@
         } else if(catID == 4) {
           icon = "./img/road.png";
         } else {
-          icon ="./img/lightning.png";
+          icon ="./img/thunder.png";
         }
         // const cateSearchIcon = ['./img/accident.png','./img/fire.png','./img/flood.png','./img/road.png','./img/lightning.png']
         const image = {
@@ -477,9 +476,22 @@ console.log(data);
 // httpPost(url,data){}
     }
     function addOnePoint(position, title, base64) {
+      let icon = "";
+        if(catID == 1) {
+          icon = "./img/accident.png";
+        } else if(catID == 2) {
+          icon = "./img/fire.png";
+        } else if(catID == 3) {
+          icon = "./img/flood.png";
+        } else if(catID == 4) {
+          icon = "./img/road.png";
+        } else {
+          icon ="./img/thunder.png";
+        }
       const image = {
+        
         // url: "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
-        url: cataSearch[selectedIdSearch].icon,
+        url: icon,
         size: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(0, 50),
