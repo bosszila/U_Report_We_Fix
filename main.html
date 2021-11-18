@@ -22,7 +22,9 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="mystyle.css">
-    
+    <script>
+        var userIdLogin;
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -62,6 +64,60 @@
             <label class="form-check-label" for="inlineRadio2">เลือกจากแผนที่</label>
         </div>
         
+
+        <script>
+        
+            function httpPostLogIn(theUrl, body){
+        
+        var xmlHttp = new XMLHttpRequest();
+        
+        xmlHttp.open( "POST", theUrl, false);
+        
+        xmlHttp.setRequestHeader('Content-Type', 'application/json');
+        
+        xmlHttp.setRequestHeader('requestUID', 'aaaa');
+        
+        xmlHttp.send( JSON.stringify(body) );
+        
+        var data=JSON.parse(xmlHttp.responseText);
+        console.log("----------")
+        console.log(xmlHttp.responseText)
+        console.log("----------")
+        alert("Welcome "+ data.user.userId);
+        userIdLogin = data.user.userId;
+        document.getElementById("usernameInputDiv").style.display = "none";
+        document.getElementById("passwordInputDiv").style.display = "none";
+        document.getElementById("logInButton").style.display = "none";
+  
+        return xmlHttp.responseText;
+            }
+        
+            function myFunctionLogin() {  
+            var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/user";
+            var data = {
+            "socialId": document.getElementById("usernameInput").value,
+            "password": document.getElementById("passwordInput").value,
+            "email": document.getElementById("usernameInput").value,
+            "firstName": "pair2",
+            "lastName": "pair2",
+            "phoneNo": "0623128998"
+          };
+          
+          httpPostLogIn(url,data)
+              }
+        </script>
+        
+          <div id="usernameInputDiv">
+            <input type="text" id="usernameInput" class="form-control bg-light border-0 small" placeholder="username"
+            aria-label="Search" aria-describedby="basic-addon2">
+          </div>
+        <div id="passwordInputDiv">
+            <input type="text" id="passwordInput" class="form-control bg-light border-0 small" placeholder="password"
+            aria-label="Search" aria-describedby="basic-addon2">
+          </div>
+          <div>
+          <button type="button" id="logInButton" class="btn btn-primary btn-block btn-large" onclick="myFunctionLogin()">login</button>
+          </div>
       
         <!-- <div>
             <h6><i class="fas fa-phone fa-sm"></i>+1(800)6578976</h6>
@@ -174,6 +230,7 @@
       <!-- Modal -->
       <script>
          function doOpenPopup(i_tlte, i_desc, i_cateID,i_reportID , i_lat, i_lng , i_initialCreate, i_userID, i_userGroupID){
+               console.log(userIdLogin)
                document.getElementById("inputHeaderEdit").value = i_tlte;
                document.getElementById("inputDetailEdit").value = i_desc;
                $("#editPopup_cateID").val(i_cateID);
