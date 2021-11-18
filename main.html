@@ -136,6 +136,12 @@
                       ' <h6 id=÷"desc2"><i class="fa fa-home" aria-hidden="true"></i>'+ $("#catId").find("[value="+categoryId+"]").text() +'</h6>'+
                       ' <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i>'+ location +'</h6>'+
                       '   </div>'+
+                      ' <div class="modal-footer">'+
+                       '<div class="col text-left">'+
+                  
+                      '<button type="button" class="btn btn-warning" onclick= "addVote('+categoryId+','+i_reportID+')" id="buttonLike" ><i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i><div name="voteAmount" catId='+categoryId +' reportId='+ i_reportID +'></div>'+ '</button>'+
+                      '  </div>'+
+                  '     </div>'+
                     '  </div>'+
                   '     </div>'+
           '    </div>'+
@@ -327,6 +333,32 @@ function agentDoFix(){
           }
           return xmlHttp.responseText;
 }
+
+function addVote(i_cateID,i_reportID){
+  var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/report/addVote";
+  var data = {
+    "reportId" :i_reportID, 
+      "voteUserId": g_userID,
+      "categoryID": i_cateID
+  };
+  console.log(data);
+          var xmlHttp = new XMLHttpRequest();
+
+          xmlHttp.open( "POST", url, false);
+
+          xmlHttp.setRequestHeader('Content-Type', 'application/json');
+
+          xmlHttp.setRequestHeader('requestUID', 'aaaa');
+
+          xmlHttp.send( JSON.stringify(data) );
+
+          $("[name=voteAmount][catId="+i_cateID+"][reportId="+i_reportID+"]").text(xmlHttp.responseText.voteAmount);
+
+          return xmlHttp.responseText;
+}
+
+
+
 function reporterDoClosed(){
 
 }
