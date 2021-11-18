@@ -309,7 +309,7 @@
    var html = ' <div class="card-container"> '+
       ' <div class="float-layout">'+
                   '  <div class="card-image">'+
-                    '<img src="data:image/png;base64,'+ img +'"/> '+
+                  '<img class="img-thumbnail" src="'+ (img.indexOf("image")>=0? img : "data:image/png;base64,"+img) +'"/> '+
                   ' <div class="card">'+
                       ' <div class="card-title">'+i_title+ 
                         '<button type="button" class="btn btn-secondary" id="status" data-toggle="modal" data-target="#exampleModal"                         onclick=\"doOpenPopup(\''+i_title+'\',\''+i_desc+'\',\''+categoryId+'\',\''+reportID+'\',\''+location.lat+'\',\''+location.lng+'\',\''+i_initialCreate+'\',\''+i_userID+'\',\''+i_userGroupID+'\')\">Open</button>'+
@@ -412,7 +412,19 @@ xmlHttp.send( JSON.stringify(body) );
 return xmlHttp.responseText;
 
 }
-    function myFunction() {
+
+function getBase64(file) {
+   var reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = function () {
+     console.log(reader.result);
+   };
+   reader.onerror = function (error) {
+     console.log('Error: ', error);
+   };
+}
+
+    function myFunction(i_imgbase64) {
 
 
       var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/report/save";
@@ -423,7 +435,7 @@ var data = {
     "userId": "3",
     "categoryId": $("#catId").val(),
     "description" : $("#inputDetail").val(),
-    "picture1" : "TT"
+    "picture1" : i_imgbase64
 };
 console.log(data);
         var xmlHttp = new XMLHttpRequest();
@@ -450,7 +462,6 @@ console.log(data);
   
 // httpPost(url,data){}
     }
-
     function addOnePoint(position, title) {
       const image = {
         // url: "data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
@@ -477,6 +488,21 @@ console.log(data);
             infoWindow.setContent(contentString);
             infoWindow.open(marker.getMap(), marker);
           });
+    }
+    function loadFile() {
+      // const preview = document.querySelector('img');
+      const file = document.querySelector('input[type=file]').files[0];
+      const reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+      // convert image file to base64 string
+        // preview.src = reader.result;
+        myFunction(reader.result);
+      }, false);
+
+      if (file) {
+      reader.readAsDataURL(file);
+      }
     }
 
 function agentDoFix(){
@@ -687,7 +713,7 @@ function reporterDoOpen(){
         <div class="modal-footer">
           <div class="col text-center">
           <button type="button" id="btnClosePopup" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times fa-2x" aria-hidden="true"></i></button>
-          <button type="button" onclick= "myFunction()" class="btn btn-success"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+          <button type="button" onclick= "loadFile()" class="btn btn-success"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
         </div>
         </div>
       </div>
