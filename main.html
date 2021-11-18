@@ -113,22 +113,22 @@
     <h2 class="section-heading h1 pt-4"><i class="fa fa-star" aria-hidden="true"></i>You Report, We Fix</h2>
     <!--Section description-->
 <script>
- function addCard(i_title, i_desc){
+ function addCard(img ,i_title, i_desc,date,address,location){
 
 
-   var html = '          <div class="card-container"> '+
+   var html = ' <div class="card-container"> '+
       ' <div class="float-layout">'+
                   '  <div class="card-image">'+
-                    '<img src="ppng/riehi343j4h3k" > '+
+                    '<img src="data:image/png;base64,'+ img +'"/> '+
                   ' <div class="card">'+
                       ' <div class="card-title">'+i_title+ 
                         '<button type="button" class="btn btn-secondary" id="status" data-toggle="modal" data-target="#exampleModal" onclick=\"doOpenPopup(\''+i_title+'\')\">Open</button>'+
                       ' </div>'+
                     ' <div class="card-desc" id="title1">'+
                         i_desc +
-                      '<h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i> 15/11/2021 22.03 น.</h6>'+
-                      ' <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i> 39 ซอย 2 จตุจักร</h6>'+
-                      ' <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i> 13.746489 , 100.549110</h6>'+
+                      '<h6 id="desc1"><i class="fa fa-calendar" aria-hidden="true"></i>'+ date +'</h6>'+
+                      ' <h6 id="desc2"><i class="fa fa-home" aria-hidden="true"></i>'+ address +'</h6>'+
+                      ' <h6 id="desc3"><i class="fa fa-map-marker" aria-hidden="true"></i>'+ location +'</h6>'+
                       '   </div>'+
                     '  </div>'+
                   '     </div>'+
@@ -138,7 +138,7 @@
    document.getElementById("card_list").innerHTML += html;
  }
 </script>
-  <input type="button" value="add" onclick="addCard('test','gggfg')"/>
+  <input type="button" value="add" "/>
     <div class="row">
   
       <!--Grid column-->
@@ -146,7 +146,7 @@
          
            
           
-          <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#addModel">+</button>
+          <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#addModel" onclick="addCard('test','gggfg')">+</button>
       
       
         <!--Form with header-->
