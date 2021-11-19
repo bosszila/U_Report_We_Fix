@@ -89,15 +89,15 @@
         tourStops.push([{lat: points[g].latitude, lng: points[g].longitude}, points[g].topic, points[g].categoryID]);
       }
       const infoWindow = new google.maps.InfoWindow();
-      tourStops.forEach(([position, title, catID], i) => {
+      tourStops.forEach(([position, title, catId], i) => {
         let icon = "";
-        if(catID == 1) {
+        if(catId == 1) {
           icon = "./img/accident.png";
-        } else if(catID == 2) {
+        } else if(catId == 2) {
           icon = "./img/thunder.png";
-        } else if(catID == 3) {
+        } else if(catId == 3) {
           icon = "./img/flood.png";
-        } else if(catID == 4) {
+        } else if(catId == 4) {
           icon = "./img/road.png";
         } else {
           icon ="./img/fire.png";
@@ -507,7 +507,7 @@ function getBase64(file) {
         "topic" : $("#inputHeader").val(), 
           "latitude": latLongMain.lat,
           "longitude": latLongMain.lng,
-          "userId": "3",
+          "userId": userIdLogin,
           "categoryId": $("#catId").val(),
           "description" : $("#inputDetail").val(),
           "picture1" : i_imgbase64.split(",")[1]
@@ -539,13 +539,13 @@ console.log(data);
     }
     function addOnePoint(position, title, base64) {
       let icon = "";
-        if(catID == 1) {
+        if(catId == 1) {
           icon = "./img/accident.png";
-        } else if(catID == 2) {
+        } else if(catId == 2) {
           icon = "./img/thunder.png";
-        } else if(catID == 3) {
+        } else if(catId == 3) {
           icon = "./img/flood.png";
-        } else if(catID == 4) {
+        } else if(catId == 4) {
           icon = "./img/road.png";
         } else {
           icon ="./img/fire.png";
@@ -631,7 +631,7 @@ function addVote(i_cateID,i_reportID){
   var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/report/addVote";
   var data = {
     "reportId" :i_reportID, 
-      "voteUserId": g_userID,
+      "voteUserId": userIdLogin,
       "categoryID": i_cateID
   };
   console.log(data);
