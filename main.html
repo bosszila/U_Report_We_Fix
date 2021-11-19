@@ -177,7 +177,7 @@
       var searchText = document.getElementById("searchText").value;
       var searchTextSplit = searchText.split(",");
       console.log(searchText)
-      let response = httpPost("http://94.74.113.87:8081/api/scb-we-fixed/v1/searchReport", {
+      let response = httpPost("http://94.74.114.41:8081/api/scb-we-fixed/v1/searchReport", {
         "categoryID" : selectedIdSearch,
         "lat" : searchTextSplit[0].trim(),
         "lng" : searchTextSplit[1].trim(),
@@ -279,13 +279,40 @@
 
         <script>
         
-              function httpPostLogIn(theUrl, body){
+        function httpPostLogIn(theUrl, body){
           
           var xmlHttp = new XMLHttpRequest();
           
           xmlHttp.open( "POST", theUrl, false);
           
           xmlHttp.setRequestHeader('Content-Type', 'application/json');
+        
+        xmlHttp.setRequestHeader('requestUID', 'aaaa');
+        
+        xmlHttp.send( JSON.stringify(body) );
+        
+        var data=JSON.parse(xmlHttp.responseText);
+        console.log("----------")
+        console.log(xmlHttp.responseText)
+        // console.log("----------")
+        // userIdLogin = data.user.userId;
+        // document.getElementById("usernameInputDiv").style.display = "none";
+        // document.getElementById("passwordInputDiv").style.display = "none";
+        // document.getElementById("logInButton").style.display = "none";
+  
+        return xmlHttp.responseText;
+            }
+        
+            function myFunctionLogin() {  
+            var url = "http://94.74.114.41:8081/api/scb-we-fixed/v1/user";
+            var data = {
+            "socialId": document.getElementById("usernameInput").value,
+            "password": document.getElementById("passwordInput").value,
+            "email": document.getElementById("usernameInput").value,
+            "firstName": "pair2",
+            "lastName": "pair2",
+            "phoneNo": "0623128998"
+          };
           
           xmlHttp.setRequestHeader('requestUID', 'aaaa');
           
@@ -305,7 +332,7 @@
               }
           
               function myFunctionLogin() {  
-              var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/user";
+              var url = "http://94.74.114.41:8081/api/scb-we-fixed/v1/user";
               var data = {
                     "email": document.getElementById("login_email").value,
                     "password": document.getElementById("login_password").value,
@@ -375,7 +402,7 @@
     document.getElementById("card_list").innerHTML = '<button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#addModel">+</button>'
       
       $.each(i_cardList, function(i, obj){
-          addCard(obj.pic1, obj.topic , obj.description, obj.categoryId , obj.latitude, obj.longitude, false, obj.userId , obj.userGroupID), obj.reportID;
+          addCard(obj.pic1, obj.topic , obj.description, obj.categoryID , obj.latitude + ','+obj.longitude, false, obj.userId , obj.userGroupID, obj.reportID, obj.voteUp);
       });
   }
  function addCard(img ,i_title, i_desc, categoryId,location, i_initialCreate, i_userID, i_userGroupID, i_reportID){
@@ -397,7 +424,7 @@
                       ' <div class="modal-footer">'+
                        '<div class="col text-left">'+
                   
-                      '<button type="button" class="btn btn-warning" onclick= "addVote('+categoryId+','+i_reportID+')" id="buttonLike" ><i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i><div name="voteAmount" catId='+categoryId +' reportId='+ i_reportID +'></div>'+ '</button>'+
+                      '<button type="button" class="btn btn-warning" onclick= "addVote('+categoryId+','+reportID+')" id="buttonLike" ><i class="fa fa-thumbs-up" aria-hidden="true"></i><div name="voteAmount" catId='+categoryId +' reportId='+ reportID +'>'+(voteUp?voteUp:"")+'</div>'+ '</button>'+
                       '  </div>'+
                   '     </div>'+
                     '  </div>'+
@@ -503,7 +530,7 @@ function getBase64(file) {
 }
 
     function myFunction(i_imgbase64) {
-      var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/report/save";
+      var url = "http://94.74.114.41:8081/api/scb-we-fixed/v1/report/save";
       var data = {
         "topic" : $("#inputHeader").val(), 
           "latitude": latLongMain.lat,
@@ -598,7 +625,7 @@ function agentDoFix(){
   var i_cateID = $("#editPopup_cateID").val();
   var i_reportID  = $("#editPopup_reportID").val();
 
-  var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/agentUpdate";
+  var url = "http://94.74.114.41:8081/api/scb-we-fixed/v1/agentUpdate";
   var data = {
     "title" : $("#inputHeader").val(), 
       "categoryID": i_cateID,
@@ -629,12 +656,13 @@ function agentDoFix(){
 }
 
 function addVote(i_cateID,i_reportID){
-  var url = "http://94.74.113.87:8081/api/scb-we-fixed/v1/report/addVote";
-  var data = {
+  var url = "http://94.74.114.41:8081/api/scb-we-fixed/v1/report/addVote";
+  var data = { 
     "reportId" :i_reportID, 
       "voteUserId": g_userID,
       "categoryID": i_cateID
   };
+  
   console.log(data);
           var xmlHttp = new XMLHttpRequest();
 
@@ -646,7 +674,7 @@ function addVote(i_cateID,i_reportID){
 
           xmlHttp.send( JSON.stringify(data) );
 
-          $("[name=voteAmount][catId="+i_cateID+"][reportId="+i_reportID+"]").text(xmlHttp.responseText.voteAmount);
+          $("[name=voteAmount][catId="+i_cateID+"][reportId="+i_reportID+"]").text(JSON.parse(xmlHttp.responseText).voteAmount);
 
           return xmlHttp.responseText;
 }
