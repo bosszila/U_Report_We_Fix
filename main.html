@@ -535,16 +535,16 @@ console.log(data);
 
         if(xmlHttp.responseText.code = '0000'){ 
           $("#btnClosePopup").click();
-          addCard(data.picture1, data.title, data.description, data.categoryId , data.latitude+','+data.longitude);
+          addCard(data.picture1, data.topic, data.description, data.categoryId , data.latitude+','+data.longitude);
         }else{
           alert("Fail");
         }
-        addOnePoint(latLongMain,  $("#inputHeader").val(), i_imgbase64);
+        addOnePoint(latLongMain, data.topic, i_imgbase64, data.categoryId);
         return xmlHttp.responseText;
   
 // httpPost(url,data){}
     }
-    function addOnePoint(position, title, base64) {
+    function addOnePoint(position, title, base64, catId) {
       let icon = "";
         if(catId == 1) {
           icon = "./img/accident.png";
