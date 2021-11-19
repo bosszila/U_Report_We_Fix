@@ -33,6 +33,7 @@
         let latLongMain = { lat: 13.747945124817639, lng: 100.5388096197286 };
         let map;
         let markers = [];
+        let markersList = [];
         let selectedIdSearch = 1;
         const cateSearchName = ["อุบัติเหตุ","ไฟฟ้า","อุทุกภัย","ถนน","ไฟไหม้"];
         navigator.geolocation.getCurrentPosition(
@@ -72,6 +73,7 @@
           });
 
       function initMap() {
+      $("#map").height($(window).height()-200);
       map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
         center: latLongMain,
@@ -85,6 +87,10 @@
 
     function addPoint(points = []) {
       const tourStops = [];
+      for (let i = 0; i < markersList.length; i++) {
+        markersList[i].setMap(null);
+        }
+      markersList = [];
       for(let g = 0; g < points.length; g++){
         tourStops.push([{lat: points[g].latitude, lng: points[g].longitude}, points[g].topic, points[g].categoryID]);
       }
@@ -117,6 +123,7 @@
             icon:image,
             optimized: false,
           });
+          markersList.push(marker);
           const contentString =
           '<div class=""><img src="data:image/png;base64, '+points[i].pic1+'" alt="Avatar" class="center" style="width:100px;height:100px;">'+
           `<div class="container"><h4><b>${title}</b>`+
@@ -365,13 +372,13 @@
     <!--Section description-->
 <script>
   function addCardList(i_cardList){
+    document.getElementById("card_list").innerHTML = '<button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#addModel">+</button>'
+      
       $.each(i_cardList, function(i, obj){
           addCard(obj.pic1, obj.topic , obj.description, obj.categoryId , obj.latitude, obj.longitude, false, obj.userId , obj.userGroupID), obj.reportID;
       });
   }
  function addCard(img ,i_title, i_desc, categoryId,location, i_initialCreate, i_userID, i_userGroupID, i_reportID){
-  // addCard(data.picture1, data.title, data.description, data.categoryId , data.latitude+','+data.longitude);
-
 
    var html = ' <div class="card-container"> '+
       ' <div class="float-layout">'+
@@ -522,16 +529,16 @@ console.log(data);
 
         if(xmlHttp.responseText.code = '0000'){ 
           $("#btnClosePopup").click();
-          addCard(data.picture1, data.title, data.description, data.categoryId , data.latitude+','+data.longitude);
+          addCard(data.picture1, data.topic, data.description, data.categoryId , data.latitude+','+data.longitude);
         }else{
           alert("Fail");
         }
-        addOnePoint(latLongMain,  $("#inputHeader").val(), i_imgbase64);
+        addOnePoint(latLongMain, data.topic, i_imgbase64, data.categoryId);
         return xmlHttp.responseText;
   
 // httpPost(url,data){}
     }
-    function addOnePoint(position, title, base64) {
+    function addOnePoint(position, title, base64, catId) {
       let icon = "";
         if(catId == 1) {
           icon = "./img/accident.png";
